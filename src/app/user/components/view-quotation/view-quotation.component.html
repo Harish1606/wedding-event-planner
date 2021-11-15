@@ -1,0 +1,64 @@
+<div class="intro">
+<div class="container-fluid">
+    <div style="text-align: center;" *ngIf="responses.length==0">
+      No responses received
+    </div>
+    <div class="panel panel-primary pt-5" *ngIf="responses.length>0">
+        <div class="panel-body pt-4">
+          <div class="row">
+            <div class="col">
+              <div class="tableWrap" style="margin-top: 10px;">
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                        <th class="bg-primary" style="text-align: center;">#</th>  
+                        <th class="bg-primary" style="text-align: center;">Vendor name</th>
+                        <th class="bg-primary" style="text-align: center;">Vendor number</th>
+                        <th class="bg-primary" style="text-align: center;">Vendor type</th>
+                        <th class="bg-primary" style="text-align: center;">Package name</th>
+                        <th class="bg-primary" style="text-align: center;">Package amount</th>
+                        <th class="bg-primary" style="text-align: center;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody style="background-color: lightblue;text-align: center;">
+                    <tr *ngFor="let response of responses;let indexofElement=index;">
+                        <td>{{indexofElement+1}}</td>
+                        <td>{{response.vendor_name}}</td>
+                        <td>{{response.vendor_number}}</td>
+                        <td>{{response.vendor_type}}</td>
+                        <td>
+                            <tr>
+                                <td style="text-align: center;"><a class="btn text-primary" (click)="packageDetailsPage(response.package_id1)">{{response.package_name1}}</a></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;"><a class="btn text-primary" (click)="packageDetailsPage(response.package_id2)">{{response.package_name2}}</a></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;"><a class="btn text-primary" (click)="packageDetailsPage(response.package_id3)">{{response.package_name3}}</a></td>
+                            </tr>
+                        </td>
+                        <td>
+                            <tr>
+                                <td style="text-align: center;">{{response.package_amount1}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">{{response.package_amount2}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">{{response.package_amount3}}</td>
+                            </tr>
+                        </td>
+                        <td>
+                            <button (click)="updateResponse(response.id)" class="btn btn-success">Approve</button>&nbsp;
+                            <button (click)="deleteResponse(response.id)" class="btn btn-danger">Reject</button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>

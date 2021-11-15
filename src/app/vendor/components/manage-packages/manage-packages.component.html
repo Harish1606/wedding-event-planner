@@ -1,0 +1,131 @@
+  <div class="intro">
+  <div class="container-fluid">
+    <div style="text-align: center;" *ngIf="vendor_packages.length==0">
+      No packages created yet
+    </div>
+    <button type="button" style="margin-top: 10px;" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add new package
+      </button>
+    <div class="panel panel-primary pt-5" *ngIf="vendor_packages.length>0">
+        <div class="panel-body pt-4">
+          <h2 style="text-align: center;">Packages list</h2>
+          <div class="row">
+            <div class="col">
+              <div class="tableWrap" style="margin-top: 10px;">
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                        <th class="bg-primary" style="text-align: center;">#</th>  
+                      <th class="bg-primary" style="text-align: center;">Package Name</th>
+                      <th class="bg-primary" style="text-align: center;">Package details</th>
+                      <th class="bg-primary" style="text-align: center;">Package amount</th>
+                      <th class="bg-primary" style="text-align: center;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody style="background-color: lightblue;text-align: center;">
+                    <tr *ngFor="let pack of vendor_packages;let indexofElement=index;">
+                        <td>{{indexofElement+1}}</td>
+                        <td>{{pack.name}}</td>
+                        <td>{{pack.details}}</td>
+                        <td>{{pack.amount}}</td>
+                        <td>
+                            <button (click)="getPackage(pack.id)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">Edit</button>&nbsp;
+                            <button (click)="deletePackage(pack.id)" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title text-light" id="exampleModalLabel">Add package</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                        <div class="card rounded-0">
+                            <div class="card-body">
+                                <form #loginform="ngForm" class="form" (ngSubmit)="addPackage()">
+                                    <div class="form-floating">
+                                        <input  name="packagename" id="packagename" type="text" class="form-control" placeholder="enter package name" [(ngModel)]="package.name" #packagename="ngModel" required
+                                        [class.is-invalid]="packagename.invalid && packagename.touched">
+                                        <label for="packagename">Package name</label>
+                                        <small class="text-danger" [class.d-none]="packagename.valid || packagename.untouched">*Package name is required</small>
+                                    </div>
+                                    <br>
+                                    <div class="form-floating">
+                                        <input  name="packagedetails" id="packagedetails" type="text" class="form-control" placeholder="enter package details" [(ngModel)]="package.details" #packagedetails="ngModel" required
+                                        [class.is-invalid]="packagedetails.invalid && packagedetails.touched">
+                                        <label for="packagedetails">Package details</label>
+                                        <small class="text-danger" [class.d-none]="packagedetails.valid || packagedetails.untouched">*Package details are required</small>
+                                    </div>
+                                    <br>
+                                    <div class="form-floating">
+                                        <input  name="packageamount" id="packageamount" type="number" class="form-control" placeholder="enter package amount" [(ngModel)]="package.amount" #packageamount="ngModel" required
+                                        [class.is-invalid]="packageamount.invalid && packageamount.touched">
+                                        <label for="packageamount">Package amount</label>
+                                        <small class="text-danger" [class.d-none]="packageamount.valid || packageamount.untouched">*Package amount is required</small>
+                                    </div>
+                                    <br>
+                                    <button [disabled]="loginform.form.invalid" type="submit" class="btn btn-primary float-right">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title text-light" id="exampleModalLabel1">Update package</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+                        <div class="card rounded-0">
+                            <div class="card-body">
+                                <form #loginform1="ngForm" class="form" (ngSubmit)="updatePackage()">
+                                    <div class="form-floating">
+                                        <input  name="packagename" id="packagename" type="text" class="form-control" placeholder="enter package name" [(ngModel)]="package1.name" #packagename="ngModel" required
+                                        [class.is-invalid]="packagename.invalid && packagename.touched">
+                                        <label for="packagename">Package name</label>
+                                        <small class="text-danger" [class.d-none]="packagename.valid || packagename.untouched">*Package name is required</small>
+                                    </div>
+                                    <br>
+                                    <div class="form-floating">
+                                        <input  name="packagedetails" id="packagedetails" type="text" class="form-control" placeholder="enter package details" [(ngModel)]="package1.details" #packagedetails="ngModel" required
+                                        [class.is-invalid]="packagedetails.invalid && packagedetails.touched">
+                                        <label for="packagedetails">Package details</label>
+                                        <small class="text-danger" [class.d-none]="packagedetails.valid || packagedetails.untouched">*Package details are required</small>
+                                    </div>
+                                    <br>
+                                    <div class="form-floating">
+                                        <input  name="packageamount" id="packageamount" type="number" class="form-control" placeholder="enter package amount" [(ngModel)]="package1.amount" #packageamount="ngModel" required
+                                        [class.is-invalid]="packageamount.invalid && packageamount.touched">
+                                        <label for="packageamount">Package amount</label>
+                                        <small class="text-danger" [class.d-none]="packageamount.valid || packageamount.untouched">*Package amount is required</small>
+                                    </div>
+                                    <br>
+                                    <button [disabled]="loginform1.form.invalid" type="submit" class="btn btn-primary float-right">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

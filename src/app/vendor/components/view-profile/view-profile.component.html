@@ -1,0 +1,94 @@
+<div class="intro">
+<div class="container-fluid">
+    <div class="row pt-5">
+        <div class="col-md-5 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header bg-primary">
+                    <h3 class="mb-0 text text-light">Update Details</h3>
+                </div>
+                <div class="card-body">
+                    <form #loginform="ngForm" class="form" (ngSubmit)="updateVendorDetails()">
+                        <div class="form-floating">
+                            <input  name="userId" id="userId" type="number" class="form-control" placeholder="enter user id" [(ngModel)]="vendor.id" #userId="ngModel" required
+                            [class.is-invalid]="userId.invalid && userId.touched" disabled>
+                            <label for="userId">Vendor Id</label>
+                            <small class="text-danger" [class.d-none]="userId.valid || userId.untouched">*Vendor Id is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="vendorname" id="vendorname" type="text" class="form-control" placeholder="enter vendor name" [(ngModel)]="vendor.name" #vendorname="ngModel" required
+                            [class.is-invalid]="vendorname.invalid && vendorname.touched" disabled>
+                            <label for="vendorname">Vendor name</label>
+                            <small class="text-danger" [class.d-none]="vendorname.valid || vendorname.untouched">*Vendor name is required</small>
+                        </div>
+                        <br>
+                        <select name="type" class="form-select form-select-lg mb-3 form-control" aria-label="Default select example" [(ngModel)]="vendor.type" #type="ngModel" required
+                        [class.is-invalid]="type.invalid && type.touched" (ngModelChange)="fieldChange()">
+                            <option value="" disabled="true" [selected]="!vendor.type">Select type</option>
+                            <option value="Decoration">Decoration</option>
+                            <option value="Photography">Photography</option>
+                            <option value="Catering">Catering</option>
+                        </select>     
+                        <div class="form-floating">
+                            <input  name="mobileno" id="mobileno" type="tel" class="form-control" placeholder="Enter mobile number" [(ngModel)]="vendor.mobile_no" #mobileno="ngModel" required pattern="^\d{10}$"
+                            [class.is-invalid]="mobileno.invalid && mobileno.touched" (ngModelChange)="fieldChange()">
+                            <label for="mobileno">Mobile Number</label>
+                            <div *ngIf="mobileno.errors && (mobileno.invalid && mobileno.touched)">
+                                <small class="text-danger" *ngIf="mobileno.errors.required">
+                                    *Mobile number is required
+                                </small>
+                                <small class="text-danger" *ngIf="mobileno.errors.pattern">
+                                    *Mobile number must be 10 digits
+                                </small>
+                            </div>
+                        </div>         
+                        <br>   
+                        <div class="form-floating">
+                            <textarea  name="address" id="address" type="text" class="form-control" placeholder="enter address" [(ngModel)]="vendor.address" #address="ngModel" required
+                            [class.is-invalid]="address.invalid && address.touched" (ngModelChange)="fieldChange()"></textarea>
+                            <label for="address">Address</label>
+                            <small class="text-danger" [class.d-none]="address.valid || address.untouched">*Address is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input name="password" id="password" type="password" class="form-control" placeholder="enter password" [(ngModel)]="vendor.password" #password="ngModel" required
+                            [class.is-invalid]="password.invalid && password.touched" (ngModelChange)="fieldChange()">
+                            <label for="password">Password</label>
+                            <small class="text-danger" [class.d-none]="password.valid || password.untouched">*Password is required</small>
+                        </div>
+                        <br>
+                        <div *ngIf="message.length>0">
+                            <small class="alert alert-danger">{{message}}</small>
+                        </div>
+                        <br>
+                        <button [disabled]="loginform.form.invalid" type="submit" class="btn btn-primary float-right">Save</button>&nbsp;
+                        <button type="button" class="btn btn-danger float-right" (click)="confirmVendorDetails()">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" id="showmodal" [hidden]="true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch modal
+    </button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Reset</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to reset your profile?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="resetVendorDetails()">Ok</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,139 @@
+<div class="intro">
+<div class="container-fluid">
+    <div class="row pt-5">
+        <div class="col-md-5 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header bg-primary">
+                    <h3 class="mb-0 text text-light">Update Details</h3>
+                </div>
+                <div class="card-body">
+                    <form #loginform="ngForm" class="form" (ngSubmit)="updateUserDetails()">
+                        <div class="form-floating">
+                            <input  name="userId" id="userId" type="number" class="form-control" placeholder="enter user id" [(ngModel)]="user.id" #userId="ngModel" required
+                            [class.is-invalid]="userId.invalid && userId.touched" disabled>
+                            <label for="userId">User Id</label>
+                            <small class="text-danger" [class.d-none]="userId.valid || userId.untouched">*User Id is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="firstname" id="firstname" type="text" class="form-control" placeholder="enter first name" [(ngModel)]="user.first_name" #firstname="ngModel" required
+                            [class.is-invalid]="firstname.invalid && firstname.touched" disabled>
+                            <label for="firstname">First name</label>
+                            <small class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">*First name is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="lastname" id="lastname" type="text" class="form-control" placeholder="enter last name" [(ngModel)]="user.last_name" #lastname="ngModel" required
+                            [class.is-invalid]="lastname.invalid && lastname.touched" disabled>
+                            <label for="lastname">Last name</label>
+                            <small class="text-danger" [class.d-none]="lastname.valid || lastname.untouched">*Last name is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="dob" id="dob" type="date" class="form-control" placeholder="enter dob" [(ngModel)]="user.dob" #dob="ngModel" required
+                            [class.is-invalid]="dob.invalid && dob.touched" (ngModelChange)="fieldChange()">
+                            <label for="dob">Date of Birth</label>
+                            <small class="text-danger" [class.d-none]="dob.valid || dob.untouched">*Date of birth is required</small>
+                        </div>
+                        <br>
+                        <select name="gender" class="form-select form-select-lg mb-3 form-control" aria-label="Default select example" [(ngModel)]="user.gender" #gender="ngModel" required
+                        [class.is-invalid]="gender.invalid && gender.touched" (ngModelChange)="fieldChange()">
+                            <option value="" disabled="true" [selected]="!user.gender">Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>     
+                        <div class="form-floating">
+                            <input  name="mobileno" id="mobileno" type="tel" class="form-control" placeholder="Enter mobile number" [(ngModel)]="user.mobile_no" #mobileno="ngModel" required pattern="^\d{10}$"
+                            [class.is-invalid]="mobileno.invalid && mobileno.touched" (ngModelChange)="fieldChange()">
+                            <label for="mobileno">Mobile Number</label>
+                            <div *ngIf="mobileno.errors && (mobileno.invalid && mobileno.touched)">
+                                <small class="text-danger" *ngIf="mobileno.errors.required">
+                                    *Mobile number is required
+                                </small>
+                                <small class="text-danger" *ngIf="mobileno.errors.pattern">
+                                    *Mobile number must be 10 digits
+                                </small>
+                            </div>
+                        </div>         
+                        <br>   
+                        <div class="form-floating">
+                            <input  name="flatno" id="flatno" type="text" class="form-control" placeholder="enter flat no" [(ngModel)]="user.flat_no" #flatno="ngModel" required
+                            [class.is-invalid]="flatno.invalid && flatno.touched" (ngModelChange)="fieldChange()">
+                            <label for="lastname">Flat no</label>
+                            <small class="text-danger" [class.d-none]="flatno.valid || flatno.untouched">*Flat no is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="streetname" id="streetname" type="text" class="form-control" placeholder="enter street name" [(ngModel)]="user.street_name" #streetname="ngModel" required
+                            [class.is-invalid]="streetname.invalid && streetname.touched" (ngModelChange)="fieldChange()">
+                            <label for="lastname">Street name</label>
+                            <small class="text-danger" [class.d-none]="streetname.valid || streetname.untouched">*Street name is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="landmark" id="landmark" type="text" class="form-control" placeholder="enter landmark" [(ngModel)]="user.landmark" #landmark="ngModel" required
+                            [class.is-invalid]="landmark.invalid && landmark.touched" (ngModelChange)="fieldChange()">
+                            <label for="landmark">Landmark</label>
+                            <small class="text-danger" [class.d-none]="landmark.valid || landmark.untouched">*Landmark is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="city" id="city" type="text" class="form-control" placeholder="enter city" [(ngModel)]="user.city" #city="ngModel" required
+                            [class.is-invalid]="city.invalid && city.touched" (ngModelChange)="fieldChange()">
+                            <label for="city">City</label>
+                            <small class="text-danger" [class.d-none]="city.valid || city.untouched">*City is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="state" id="state" type="text" class="form-control" placeholder="enter state" [(ngModel)]="user.state" #state="ngModel" required
+                            [class.is-invalid]="state.invalid && state.touched" (ngModelChange)="fieldChange()">
+                            <label for="state">State</label>
+                            <small class="text-danger" [class.d-none]="state.valid || state.untouched">*state is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input name="password" id="password" type="password" class="form-control" placeholder="enter password" [(ngModel)]="user.password" #password="ngModel" minlength="6" required
+                            [class.is-invalid]="password.invalid && password.touched" (ngModelChange)="fieldChange()">
+                            <label for="password">Password</label>
+                            <div *ngIf="password.errors && (password.invalid && password.touched)">
+                                <small class="text-danger" *ngIf="password.errors.required">*Password is required</small>
+                                <small class="text-danger" *ngIf="password.errors.minlength">*Password should have atleast 6 characters</small>
+                            </div>
+                        </div>
+                        <br>
+                        <p>Already have an account? <a routerLink="/user-login">Login</a></p>
+                        <div *ngIf="message.length>0">
+                            <small class="alert alert-danger">{{message}}</small>
+                        </div>
+                        <br>
+                        <button [disabled]="loginform.form.invalid" type="submit" class="btn btn-primary float-right">Save</button>&nbsp;
+                        <button type="button" class="btn btn-danger float-right" (click)="confirmUserDetails()">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" id="showmodal" [hidden]="true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch modal
+    </button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Reset</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to reset your profile?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="resetUserDetails()">Ok</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

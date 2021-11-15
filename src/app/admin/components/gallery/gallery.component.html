@@ -1,0 +1,53 @@
+<div class="intro">
+<div class="container-fluid">
+    <div style="text-align: center;" *ngIf="images.length==0">
+      No images added yet
+    </div>
+    <button type="button" style="margin-top: 10px;" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add new image
+    </button>
+    <br>
+    <br>
+    <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"  *ngFor="let image of images">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="https://ucarecdn.com/{{image.url}}/-/preview/">
+                        <div class="card-footer" style="text-align: center;">
+                            <button class="btn btn-danger" (click)="deleteImage(image.id)"><i class="bi bi-trash"></i>&nbsp;Delete</button>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+</div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <h5 class="modal-title text-light" id="exampleModalLabel">Add image</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                            <div class="card rounded-0">
+                                <input type="file" *ngIf="!imageUrl" (change)="fileChanged($event)" class="filebtn" #fileButton>
+                                <br>
+                                <button class="btn btn-primary" style="text-align: center; width: 100px;" (click)="uploadFile()" *ngIf="!imageUrl">Upload</button>
+                                <div *ngIf="imageUrl">
+                                    <div>
+                                        <img src="https://ucarecdn.com/{{imageUrl.file}}/-/preview/">
+                                    </div>
+                                    <br>
+                                    <button class="btn btn-primary" (click)="addImage()">Submit</button>
+                                </div>
+                            </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

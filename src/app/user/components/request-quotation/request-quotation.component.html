@@ -1,0 +1,101 @@
+<div class="intro">
+<div class="container-fluid">
+    <div class="row pt-5">
+        <div class="col-md-5 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header bg-primary">
+                    <h3 class="mb-0 text text-light">Request quotation</h3>
+                </div>
+                <div class="card-body">
+                    <form #loginform="ngForm" class="form" (ngSubmit)="confirmMobileNumber()">
+                        <div class="form-floating">
+                            <input  name="firstname" id="firstname" type="text" class="form-control" placeholder="enter first name" [(ngModel)]="request.first_name" #firstname="ngModel" required
+                            [class.is-invalid]="firstname.invalid && firstname.touched">
+                            <label for="firstname">First name</label>
+                            <small class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">*First name is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="lastname" id="lastname" type="text" class="form-control" placeholder="enter last name" [(ngModel)]="request.last_name" #lastname="ngModel" required
+                            [class.is-invalid]="lastname.invalid && lastname.touched">
+                            <label for="lastname">Last name</label>
+                            <small class="text-danger" [class.d-none]="lastname.valid || lastname.untouched">*Last name is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="from" id="from" type="date" class="form-control" placeholder="enter from date" [(ngModel)]="request.from_date" #from="ngModel" required
+                            [class.is-invalid]="from.invalid && from.touched">
+                            <label for="dob">Event start date</label>
+                            <small class="text-danger" [class.d-none]="from.valid || from.untouched">*Event start date is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="to" id="to" type="date" class="form-control" placeholder="enter to date" [(ngModel)]="request.to_date" #to="ngModel" required
+                            [class.is-invalid]="to.invalid && to.touched">
+                            <label for="dob">Event end date</label>
+                            <small class="text-danger" [class.d-none]="to.valid || to.untouched">*Event end date is required</small>
+                        </div>
+                        <br>
+                        <select name="location" class="form-select form-select-lg mb-3 form-control" aria-label="Default select example" [(ngModel)]="request.location_" #location="ngModel" required
+                        [class.is-invalid]="location.invalid && location.touched">
+                            <option value="" disabled="true" [selected]="!request.location_">Select location</option>
+                            <option *ngFor="let l of locations" [value]="l">{{l}}</option>
+                            <option value="female">Female</option>
+                        </select> 
+                        <select name="service" id="service" class="form-select form-select-lg mb-3 form-control" aria-label="Default select example" multiple="multiple" [(ngModel)]="request.service_" #service="ngModel" required 
+                        [class.is-invalid]="service.invalid && service.touched">
+                            <option value="" disabled="true" [selected]="!request.service_">Select service</option>
+                            <option *ngFor="let s of services" [value]="s.service">{{s.service}}</option>
+                        </select>
+                        <div class="form-floating">
+                            <input  name="budget" id="budget" type="number" class="form-control" placeholder="enter budget amount" [(ngModel)]="request.budget" #budget="ngModel" required
+                            [class.is-invalid]="budget.invalid && budget.touched">
+                            <label for="packageamount">Budget</label>
+                            <small class="text-danger" [class.d-none]="budget.valid || budget.untouched">*Budget is required</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input  name="mobileno" id="mobileno" type="tel" class="form-control" placeholder="Enter mobile number" [(ngModel)]="request.mobile_no" #mobileno="ngModel" required pattern="^\d{10}$"
+                            [class.is-invalid]="mobileno.invalid && mobileno.touched">
+                            <label for="mobileno">Mobile Number</label>
+                            <div *ngIf="mobileno.errors && (mobileno.invalid && mobileno.touched)">
+                                <small class="text-danger" *ngIf="mobileno.errors.required">
+                                    *Mobile number is required
+                                </small>
+                                <small class="text-danger" *ngIf="mobileno.errors.pattern">
+                                    *Mobile number must be 10 digits
+                                </small>
+                            </div>
+                        </div>         
+                        <br>
+                        <button [disabled]="loginform.form.invalid" type="submit" class="btn btn-primary">Submit</button>&nbsp;
+                        <button type="reset" class="btn btn-danger">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" id="showmodal" [hidden]="true" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch modal
+    </button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Mobile number confirmation</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Mobile number entered is different from the registered mobile number. Click confirm to use the new number or click cancel to continue with registered number.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="confirmRegisteredMobileNumber()">Cancel</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="sendRequest()">Confirm</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

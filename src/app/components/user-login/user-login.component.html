@@ -1,0 +1,39 @@
+<app-main-nav></app-main-nav>
+<div class="intro">
+<div class="container-fluid" *ngIf="!loading">
+<div class="row pt-5">
+    <div class="col-md-5 mx-auto">
+        <div class="card rounded-0">
+            <div class="card-header bg-primary">
+                <h3 class="mb-0 text text-light">Login</h3>
+            </div>
+            <div class="card-body">
+                <form #loginform="ngForm" class="form" (ngSubmit)="loginUser()">
+                    <div class="form-floating">
+                        <input  name="userId" id="userId" type="number" class="form-control" placeholder="enter user id" [(ngModel)]="user.id" #userId="ngModel" required
+                        [class.is-invalid]="userId.invalid && userId.touched">
+                        <label for="userId">User Id</label>
+                        <small class="text-danger" [class.d-none]="userId.valid || userId.untouched">*User Id is required</small>
+                    </div>
+                    <br>
+                    <div class="form-floating">
+                        <input name="password" id="password" type="password" class="form-control" placeholder="enter password" [(ngModel)]="user.password" #password="ngModel" required
+                        [class.is-invalid]="password.invalid && password.touched">
+                        <label for="password">Password</label>
+                        <small class="text-danger" [class.d-none]="password.valid || password.untouched">*Password is required</small>
+                    </div>
+                    <br>
+                    <p>Don't have an account? <a routerLink="/user-register">Register</a></p>
+                    <div *ngIf="message.length>0">
+                        <small  class="alert alert-danger">{{message}}</small>
+                    </div>
+                    <br>
+                    <button [disabled]="loginform.form.invalid" type="submit" class="btn btn-primary float-right">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+<app-loader *ngIf="loading"></app-loader>

@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/user">Wedding Event Planner</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item px-2">
+                <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" aria-current="page" routerLink="/user">Home</a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" routerLinkActive="active" routerLink="/user/request-quotation">Request quotation</a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" routerLinkActive="active" routerLink="/user/view-quotation">View quotation</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" routerLinkActive="active" routerLink="/user/view-request">View request</a>
+          </li>
+          <li class="nav-item px-2">
+            <a class="nav-link" routerLinkActive="active" routerLink="/user/view-gallery">View gallery</a>
+          </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" routerLinkActive="active" routerLink="/user/view-profile">View profile</a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" (click)="userLogout()">Logout</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div *ngIf="router.url=='/user'">
+    <h1 style="text-align: center;margin-top: 15%;">Welcome {{user.first_name}}</h1>
+  </div>
+<router-outlet></router-outlet>

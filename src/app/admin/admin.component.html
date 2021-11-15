@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/admin">Wedding Event Planner</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item px-2">
+                <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" aria-current="page" routerLink="/admin">Home</a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" routerLinkActive="active" routerLink="/admin/user-request">User request</a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" routerLinkActive="active" routerLink="/admin/add-vendor">Add vendor</a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" routerLinkActive="active" routerLink="/admin/create-report">Create report</a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" routerLinkActive="active" routerLink="/admin/gallery">Gallery</a>
+            </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" (click)="adminLogout()">Logout</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div *ngIf="router.url=='/admin'">
+    <div class="container-fluid">
+      <div style="text-align: center;" *ngIf="pending_users.length==0">
+        No user registration is pending
+      </div>
+      <div class="panel panel-primary pt-5" *ngIf="pending_users.length>0">
+          <div class="panel-body pt-4">
+            <h2 style="text-align: center;">Users list</h2>
+            <div class="row">
+              <div class="col">
+                <div class="tableWrap" style="margin-top: 10px;">
+                  <table class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                          <th class="bg-primary" style="text-align: center;">#</th>  
+                        <th class="bg-primary" style="text-align: center;">First Name</th>
+                        <th class="bg-primary" style="text-align: center;">Last Name</th>
+                        <th class="bg-primary" style="text-align: center;">Dob</th>
+                        <th class="bg-primary" style="text-align: center;">Gender</th>
+                        <th class="bg-primary" style="text-align: center;">Mobile Number</th>
+                        <th class="bg-primary" style="text-align: center;">State</th>
+                        <th class="bg-primary" style="text-align: center;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody style="background-color: lightblue;text-align: center;">
+                      <tr *ngFor="let user of pending_users;let indexofElement=index;">
+                          <td>{{indexofElement+1}}</td>
+                          <td>{{user.first_name}}</td>
+                          <td>{{user.last_name}}</td>
+                          <td>{{user.dob}}</td>
+                          <td>{{user.gender}}</td>
+                          <td>{{user.mobile_no}}</td>
+                          <td>{{user.state}}</td>
+                          <td>
+                              <button (click)="approve(user.id)" class="btn btn-primary">Approve</button>&nbsp;
+                              <button (click)="deleteuser(user.id)" class="btn btn-danger">Deny</button>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+<router-outlet></router-outlet>
